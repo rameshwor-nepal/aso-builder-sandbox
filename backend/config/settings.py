@@ -9,11 +9,14 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # local apps
-    # 'apps.intake.apps.IntakeConfig',
+    'apps.intake.apps.IntakeConfig',
     
     # third party apps
     'rest_framework'
@@ -85,6 +88,16 @@ DATABASES = {
     }
 }
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

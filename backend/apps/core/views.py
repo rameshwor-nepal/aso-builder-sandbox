@@ -1,13 +1,8 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils.timezone import now
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-
-def Index(request):
-    return HttpResponse("Healthy!!")
-
 
 class HealthCheckAPIView(APIView):
     """
@@ -23,9 +18,9 @@ class HealthCheckAPIView(APIView):
         return Response(
             {
                 "status": "healthy",
-                "service": "my-api",
+                "service": "aso-builder-sandbox",
                 "timestamp": now().isoformat(),
-                "version": "1.0.0",
+                "version": "0.1.0",
             },
             status=status.HTTP_200_OK,
         )
