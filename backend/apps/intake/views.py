@@ -1,7 +1,8 @@
 
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
+
+from common.responses import success_reponse
 from .models import *
 from .serializers import *
 
@@ -16,14 +17,19 @@ class BusinessProblemApiView(APIView):
     def get(self,request):
         business_problems=BusinessProblem.objects.all()
         serializer=BusinessProblemSerializer(business_problems, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return success_reponse(
+            data=serializer.data, 
+            message="Business problems retrieved successfully."
+        )
     
     def post(self, request):
         serializer=BusinessProblemSerializer(data=request.data)
         
-        if serializer.is_valid():
-            problem=serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        problem=serializer.save()
+        return success_reponse(
+            data=serializer.data,
+            message="Business problem created successfully",
+            status_code=status.HTTP_201_CREATED
+        )
     
