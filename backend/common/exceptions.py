@@ -7,6 +7,8 @@ from .responses import error_response
 
 
 def custom_exception_handler(exc, context):
+    print("EXCEPTION TYPE:", type(exc))
+    print("EXCEPTION:", exc)
 
     # First let DRF handle the exception.
     response = exception_handler(exc, context)
@@ -49,7 +51,7 @@ def custom_exception_handler(exc, context):
         )
 
     # Resource not found
-    if isinstance(exc, NotFound):
+    if response.status_code == status.HTTP_404_NOT_FOUND:
         return error_response(
             message="The requested resource was not found.",
             code="RESOURCE_NOT_FOUND",

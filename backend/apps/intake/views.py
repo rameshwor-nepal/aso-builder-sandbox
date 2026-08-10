@@ -65,3 +65,45 @@ class BusinessProblemApiView(generics.ListCreateAPIView):
             message="Business problem created successfully",
             status_code=status.HTTP_201_CREATED
         )
+
+
+class BusinessProblemDetailApiView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    GET -> retrieve instance of model
+    PUT/PATCH -> update the field
+    DELETE -> destroy or delete record permanently
+    """
+    
+    queryset = BusinessProblem.objects.all()
+    serializer_class = BusinessProblemSerializer
+
+    authentication_classes = []
+    permission_classes = []
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return success_response(
+            data=serializer.data,
+            message="Business problem retrieved successfully."
+        )
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return success_response(
+            data=serializer.data,
+            message="Business problem updated successfully."
+        )
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return success_response(
+            data=None,
+            message="Business problem deleted successfully.",
+            status_code=status.HTTP_200_OK
+        )
