@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 
-def success_reponse(data=None, message="Request successful", status_code=status.HTTP_200_OK):
+def success_response(data=None, message="Request successful", status_code=status.HTTP_200_OK):
     return Response(
         {
             "success": True,
