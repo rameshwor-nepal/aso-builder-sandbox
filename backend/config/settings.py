@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     
     # local apps
     'apps.intake.apps.IntakeConfig',
-    
+    'apps.ai.apps.AiConfig',
     # third party apps
-    'rest_framework'
+    'rest_framework',
 ]
 
 REST_FRAMEWORK = {
