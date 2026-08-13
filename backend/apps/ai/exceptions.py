@@ -10,3 +10,7 @@ class AIProviderTimeOutError(AIProviderError):
 
 class AIProviderUnavailableError(AIProviderError):
     pass
+
+
+class AIProviderConfigurationError(Exception):
+    pass
