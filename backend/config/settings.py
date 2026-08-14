@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     
     # local apps
     'apps.intake.apps.IntakeConfig',
-    
+    'apps.ai.apps.AiConfig',
     # third party apps
-    'rest_framework'
+    'rest_framework',
 ]
 
 REST_FRAMEWORK = {
@@ -143,3 +143,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#env variable
+AI_PROVIDER = os.getenv("AI_PROVIDER", "fake")
