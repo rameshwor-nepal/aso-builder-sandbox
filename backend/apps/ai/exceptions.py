@@ -14,3 +14,6 @@ class AIProviderUnavailableError(AIProviderError):
 
 class AIProviderConfigurationError(Exception):
     pass
+
+class AIProviderRateLimitError(AIProviderError):
+    pass
